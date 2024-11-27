@@ -102,8 +102,10 @@ const Pokedex = ({ pokemons, setPokemons }) => {
             <div className="pokedex-bottom">
                 <p>
                     <img src={pokeballIcon} />
-                    <a href="#">Source Code</a> |{" "}
-                    <a href="https://github.com/bryanidem">bryanidem</a>
+                    <a href="https://github.com/bryanidem/Odin-Memory-Card">
+                        Source Code
+                    </a>{" "}
+                    | <a href="https://github.com/bryanidem">bryanidem</a>
                 </p>
             </div>
         </div>
