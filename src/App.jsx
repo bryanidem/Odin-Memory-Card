@@ -3,15 +3,21 @@ import Pokedex from "./components/Pokedex";
 import "./styles/App.css";
 
 const App = () => {
-    const [score, setScore] = useState(0);
     const [pokemons, setPokemons] = useState([]);
+
+    const uniqueRandomNumbers = (count, min, max) => {
+        const range = Array.from({ length: max - min + 1 }, (_, i) => i + min);
+        for (let i = range.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [range[i], range[j]] = [range[j], range[i]];
+        }
+        return range.slice(0, count);
+    };
 
     useEffect(() => {
         const fetchPokemons = async () => {
-            const TOTAL_POKEMON = 1010;
-            const randomIds = Array.from({ length: 12 }, () =>
-                Math.floor(Math.random() * TOTAL_POKEMON + 1)
-            );
+            const TOTAL_POKEMON = 1025;
+            const randomIds = uniqueRandomNumbers(12, 0, TOTAL_POKEMON);
             try {
                 const fetches = randomIds.map(async (id) => {
                     const response = await fetch(
@@ -22,6 +28,7 @@ const App = () => {
                     return {
                         name: data.name,
                         sprite: data.sprites.front_default,
+                        id: data.id,
                     };
                 });
                 const pokemonInfo = await Promise.all(fetches);
@@ -34,7 +41,7 @@ const App = () => {
 
         fetchPokemons();
     }, []);
-    return <Pokedex pokemons={pokemons} />;
+    return <Pokedex pokemons={pokemons} setPokemons={setPokemons} />;
 
     // useEffect()
 };

@@ -1,7 +1,32 @@
 import "../styles/Pokedex.css";
 import Card from "./Card";
+import pokeballIcon from "../assets/images/pokeball.png";
+import { useState } from "react";
 
-const Pokedex = ({ pokemons }) => {
+const Pokedex = ({ pokemons, setPokemons }) => {
+    const [guesses, setGuesses] = useState([]);
+    const [bestScore, setBestScore] = useState(0);
+
+    const shuffleArray = (arr) => {
+        const shuffled = [...arr];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    };
+
+    const handleClick = (pokemon) => {
+        console.log(`Card clicked: ${pokemon.name}`);
+        if (!guesses.includes(pokemon.name)) {
+            setGuesses([...guesses, pokemon.name]);
+            setPokemons(shuffleArray(pokemons));
+            setBestScore(guesses.length + 1);
+        } else {
+            console.log(`${pokemon.name} is already on choosen`);
+        }
+        console.log(guesses);
+    };
     return (
         <div id="pokedex">
             <div className="pokedex-top">
@@ -19,14 +44,22 @@ const Pokedex = ({ pokemons }) => {
             <div className="pokedex-content">
                 <div className="cards">
                     {pokemons.map((pokemon) => (
-                        <Card pokemon={pokemon} key={pokemon.id} />
+                        <Card
+                            pokemon={pokemon}
+                            key={pokemon.id}
+                            onClick={() => handleClick(pokemon)}
+                        />
                     ))}
                 </div>
 
                 <div className="display-score">
                     <div className="score">
-                        <p>Score: </p>
-                        <p>Best Score:</p>
+                        <p>
+                            Score: <img src={pokeballIcon} /> x {guesses.length}
+                        </p>
+                        <p>
+                            Best Score: <img src={pokeballIcon} /> x {bestScore}
+                        </p>
                     </div>
 
                     <div className="blue-buttons">

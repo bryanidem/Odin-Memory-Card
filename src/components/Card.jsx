@@ -1,7 +1,7 @@
-const Card = ({ pokemon }) => {
+const Card = ({ pokemon, onClick }) => {
     return (
-        <div className="card">
-            <img src={pokemon.sprite} alt={pokemon.name} />
+        <div className="card" onClick={onClick}>
+            <img src={pokemon.sprite} alt={pokemon} />
             <p>{pokemon.name}</p>
         </div>
     );
