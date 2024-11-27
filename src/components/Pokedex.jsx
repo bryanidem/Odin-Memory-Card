@@ -16,16 +16,23 @@ const Pokedex = ({ pokemons, setPokemons }) => {
         return shuffled;
     };
 
+    const getColor = (index) => {
+        return index < guesses.length
+            ? "rgb(35, 202, 244)"
+            : "rgb(15, 66, 233)";
+    };
+
     const handleClick = (pokemon) => {
         console.log(`Card clicked: ${pokemon.name}`);
         if (!guesses.includes(pokemon.name)) {
             setGuesses([...guesses, pokemon.name]);
             setPokemons(shuffleArray(pokemons));
-            setBestScore(guesses.length + 1);
         } else {
-            console.log(`${pokemon.name} is already on choosen`);
+            if (guesses.length > bestScore) {
+                setBestScore(guesses.length);
+            }
+            setGuesses([]);
         }
-        console.log(guesses);
     };
     return (
         <div id="pokedex">
@@ -63,16 +70,15 @@ const Pokedex = ({ pokemons, setPokemons }) => {
                     </div>
 
                     <div className="blue-buttons">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                        {Array.from({ length: 12 }, (_, index) => (
+                            <div
+                                key={index}
+                                className="color-div"
+                                style={{
+                                    backgroundColor: getColor(index),
+                                }}
+                            ></div>
+                        ))}
                     </div>
 
                     <div className="grey-buttons">
@@ -93,7 +99,13 @@ const Pokedex = ({ pokemons, setPokemons }) => {
                     </div>
                 </div>
             </div>
-            <div className="pokedex-bottom"></div>
+            <div className="pokedex-bottom">
+                <p>
+                    <img src={pokeballIcon} />
+                    <a href="#">Source Code</a> |{" "}
+                    <a href="https://github.com/bryanidem">bryanidem</a>
+                </p>
+            </div>
         </div>
     );
 };
