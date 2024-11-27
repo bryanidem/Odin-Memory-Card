@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Pokedex from "./components/Pokedex";
+import "./styles/App.css";
 
 const App = () => {
     const [score, setScore] = useState(0);
@@ -8,7 +9,7 @@ const App = () => {
     useEffect(() => {
         const fetchPokemons = async () => {
             const TOTAL_POKEMON = 1010;
-            const randomIds = Array.from({ length: 6 }, () =>
+            const randomIds = Array.from({ length: 12 }, () =>
                 Math.floor(Math.random() * TOTAL_POKEMON + 1)
             );
             try {
@@ -17,7 +18,7 @@ const App = () => {
                         `https://pokeapi.co/api/v2/pokemon/${id}`
                     );
                     const data = await response.json();
-                    console.log(data);
+
                     return {
                         name: data.name,
                         sprite: data.sprites.front_default,

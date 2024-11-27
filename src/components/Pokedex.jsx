@@ -1,4 +1,5 @@
 import "../styles/Pokedex.css";
+import Card from "./Card";
 
 const Pokedex = ({ pokemons }) => {
     return (
@@ -16,20 +17,47 @@ const Pokedex = ({ pokemons }) => {
                 </div>
             </div>
             <div className="pokedex-content">
-                <div>
-                    <ul>
-                        {pokemons.map((pokemon) => (
-                            <li key={pokemon.name}>
-                                <div className="card">
-                                    <img
-                                        src={pokemon.sprite}
-                                        alt={pokemon.name}
-                                    />
-                                    <p>{pokemon.name}</p>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                <div className="cards">
+                    {pokemons.map((pokemon) => (
+                        <Card pokemon={pokemon} key={pokemon.id} />
+                    ))}
+                </div>
+
+                <div className="display-score">
+                    <div className="score">
+                        <p>Score: </p>
+                        <p>Best Score:</p>
+                    </div>
+
+                    <div className="blue-buttons">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+
+                    <div className="grey-buttons">
+                        <div className="right-buttons">
+                            <div></div>
+                            <div></div>
+                        </div>
+
+                        <div className="left-buttons">
+                            <div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="pokedex-bottom"></div>
